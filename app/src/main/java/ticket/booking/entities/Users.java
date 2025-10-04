@@ -19,6 +19,14 @@ public class Users {
         this.emailId = emailId;
     }
 
+    public Users(String name, String password, String hashedPassword, List<Ticket> ticketsBooked, String userId) {
+        this.UserName = name;
+        this.password = password;
+        this.hashedPassword = hashedPassword;
+        this.ticketbook = ticketsBooked;
+        this.userId = userId;
+    }
+
     public Users() {}
 
     public String getName() {
@@ -46,11 +54,19 @@ public class Users {
     }
 
 
-//    public void printTickets(){
-//        for (Ticket ticket : ticketbook) {
-//            System.out.println(ticket.getTicketInfo());
-//        }
-//    }
+   public void printTickets(){
+       for (Ticket ticket : ticketbook) {
+           System.out.println(ticket.getTicketInfo());
+       }
+   }
+
+    public List<String> getListTicketsBooked() {
+        List<String> list = null;
+        for (Ticket ticket : ticketbook) {
+            list =  List.of(ticket.getTicketId());
+        }
+        return list;
+    }
 
 
     public void setName(String name) {

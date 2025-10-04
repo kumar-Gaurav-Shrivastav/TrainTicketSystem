@@ -20,29 +20,59 @@ public class UserBookingService {
     public UserBookingService(Users user1) throws IOException {
         this.user = user1;
         File userFile = new File(USER_Path);
-        userList = objectMapper.readValue(userFile, new TypeReference<List<Users>>() {});
+        userList = objectMapper.readValue(userFile, new TypeReference<List<Users>>() {
+        });
     }
 
-    public Boolean loginUser(){
+    public UserBookingService() throws IOException {
+        File userFile = new File(USER_Path);
+        userList = objectMapper.readValue(userFile, new TypeReference<List<Users>>() {
+        });
+    }
+
+    public Boolean loginUser() {
         Optional<Users> foundUser = userList.stream().filter(user1 -> {
-            return user1.getName().equals(user.getName()) && UserServiceUtils.checkPassword(user.getPassword(), user1.getHashedPassword());
+            return user1.getName().equals(user.getName())
+                    && UserServiceUtils.checkPassword(user.getPassword(), user1.getHashedPassword());
         }).findFirst();
         return foundUser.isPresent();
     }
 
-    public Boolean signUp(Users user1){
-        try{
+    public Boolean signUp(Users user1) {
+        try {
             userList.add(user1);
             saveUserListToFile();
             return Boolean.TRUE;
-        }catch (IOException ex){
+        } catch (IOException ex) {
             return Boolean.FALSE;
         }
     }
 
-    public void saveUserListToFile() throws IOException{
+    public void saveUserListToFile() throws IOException {
         File file = new File(USER_Path);
         objectMapper.writeValue(file, userList);
+    }
+
+    public void fetchBooking() {
+        user.printTickets();
+    }
+
+    public Boolean cancellbooking(String ticketId) {
+        try {
+            Optional<List<Users>> data = Optional.of(userList.stream().map(user1 -> {
+                if (user1.getListTicketsBooked().contains(ticketId)) {
+                    user1.getListTicketsBooked().remove(ticketId);
+                }
+                return user1;
+            }).toList());
+            if (data.isPresent()) {
+                File newUserList = new File(USER_Path);
+                objectMapper.writeValue(newUserList, userList);
+            }
+            return Boolean.TRUE;
+        } catch (IOException ex) {
+            return Boolean.FALSE;
+        }
     }
 
 }
