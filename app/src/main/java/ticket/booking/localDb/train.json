@@ -1,0 +1,37 @@
+[
+  {
+    "train_id": "bacs",
+    "train_no": "12345",
+    "train_name": "jansatabdi",
+    "seats": [
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0]
+    ],
+    "station_times": {
+      "Bangalore": "13:50:00",
+      "Jaipur": "13:50:00",
+      "Delhi": "13:50:00"
+    },
+    "stations": ["Bangalore", "Jaipur", "Delhi"]
+  },
+  {
+    "train_id": "bacs2",
+    "train_no": "123452",
+    "train_name": "jansatabdi2",
+    "seats": [
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0]
+    ],
+    "station_times": {
+      "Bangalore": "13:50:02",
+      "Jaipur": "13:50:02",
+      "Delhi": "13:50:02"
+    },
+    "stations": ["Bangalore", "Jaipur", "Delhi"]
+  }
+]
