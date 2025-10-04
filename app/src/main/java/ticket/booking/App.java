@@ -52,7 +52,7 @@ public class App {
                 String loginName = scanner.next();
                 System.out.println("enter your password");
                 String loginPassword = scanner.next();
-                Users userTologin = new Users(name, password, UserServiceUtils.getHashPassword(password), new ArrayList<>(), UUID.randomUUID().toString());
+                Users userTologin = new Users(loginName, loginPassword, UserServiceUtils.getHashPassword(loginPassword), new ArrayList<>(), UUID.randomUUID().toString());
                 if(userBookingService.loginUser()){
                     System.out.println("Login Successful");
                 } else {
