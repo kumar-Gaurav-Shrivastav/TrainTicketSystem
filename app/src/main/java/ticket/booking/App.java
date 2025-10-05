@@ -5,11 +5,13 @@ package ticket.booking;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
 import ticket.booking.entities.Ticket;
+import ticket.booking.entities.Train;
 import ticket.booking.entities.Users;
 import ticket.booking.services.UserBookingService;
 import ticket.booking.utils.UserServiceUtils;
@@ -36,6 +38,7 @@ public class App {
             System.out.println("6. Cancel my Booking");
             System.out.println("7. Exit the App");
             option = scanner.nextInt();
+            Train trainSelectedForBooking = new Train();
             switch (option) {
                 case 1:
                 System.out.println("enter your username");
@@ -60,6 +63,51 @@ public class App {
                 }
 
                 case 3:
+                System.out.println("Fetching your bookings");
+                userBookingService.fetchBooking();
+                break;
+
+                case 4:
+                System.out.println("tell us from where you want to travel");
+                String origin = scanner.next();
+                System.out.println("tell us your destination");
+                String destination = scanner.next();
+                List<Train> listTrain = userBookingService.fetchTrain(origin, destination);
+                for (int i = 0; i < listTrain.size(); i++) {
+                    Train train = listTrain.get(i);
+                    Date sourceTime = train.getStationTimes().get(origin);
+                    Date destTime = train.getStationTimes().get(destination);
+                    System.out.println((i + 1) + ". " + train.getTrainName() + " at station " + origin + " at Time "
+                            + sourceTime + " to " + destination + " at " + destTime);
+                };
+                System.out.println("Select a train by typing 1,2,3...");
+                trainSelectedForBooking = listTrain.get(scanner.nextInt());
+                break;
+
+                case 5:
+                    System.out.println("Select a seat out of these seats");
+                    List<List<Integer>> seats = userBookingService.fetchSeats(trainSelectedForBooking);
+                    for (List<Integer> row: seats){
+                        for (Integer val: row){
+                            System.out.print(val+" ");
+                        }
+                        System.out.println();
+                    }
+                    System.out.println("Select the seat by typing the row and column");
+                    System.out.println("Enter the row");
+                    int row = scanner.nextInt();
+                    System.out.println("Enter the column");
+                    int col = scanner.nextInt();
+                    System.out.println("Booking your seat....");
+                    Boolean booked = userBookingService.bookTrainSeat(trainSelectedForBooking, row, col);
+                    if(booked.equals(Boolean.TRUE)){
+                        System.out.println("Booked! Enjoy your journey");
+                    }else{
+                        System.out.println("Can't book this seat");
+                    }
+                    break;
+                default:
+                    break;
         }
     }
     }

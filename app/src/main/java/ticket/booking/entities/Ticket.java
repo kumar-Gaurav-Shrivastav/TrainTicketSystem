@@ -13,7 +13,7 @@ public class Ticket {
     private Train train;
     private String ticketInfo;
 
-    public Ticket(String ticketId, String seatNo, String userId, String origin, String destination, Date dateOfTravel, Train train, String ticketInfo) {
+    public Ticket(String ticketId, String seatNo, String userId, String origin, String destination, Date dateOfTravel, Train train) {
         this.TicketId = ticketId;
         this.seatNo = seatNo;
         this.userId = userId;
@@ -21,7 +21,7 @@ public class Ticket {
         this.destination = destination;
         this.dateOfTravel = dateOfTravel;
         this.train = train;
-        this.ticketInfo = ticketInfo;   
+        this.ticketInfo = "Ticket ID: " + this.TicketId + " belongs to User " + this.userId + " from " + this.origin + " to " + this.destination + " on " + this.dateOfTravel;
     }
 
     public Ticket() {}
